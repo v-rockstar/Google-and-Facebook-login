@@ -1,4 +1,4 @@
-# snapchat
+# Google and Facebook login
 
 A new Flutter project.
 
