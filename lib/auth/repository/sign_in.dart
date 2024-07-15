@@ -1,10 +1,15 @@
+import 'dart:developer';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:snapchat/controllers/update_data.dart';
+import '../../helper/pref.dart';
+import '../screens/my_homepage.dart';
 
-class Repository {
-  final firebaseAuth = FirebaseAuth.instance;
+class SignIn {
   final googleSignIn = GoogleSignIn();
+  final firebaseAuth = FirebaseAuth.instance;
 
   void googleSignInfnc() async {
     try {
@@ -15,7 +20,16 @@ class Repository {
         AuthCredential credential = GoogleAuthProvider.credential(
             accessToken: googleSignInAuthentication.accessToken,
             idToken: googleSignInAuthentication.idToken);
-        await firebaseAuth.signInWithCredential(credential);
+        final userCredentials =
+            await firebaseAuth.signInWithCredential(credential);
+        final user = userCredentials.user;
+        log("gcredential -->> $user");
+
+        Pref.uid = user?.uid;
+
+        await UpdateDataController.createUser(user);
+
+        Get.to(() => const MyHomePage());
       }
     } catch (e) {
       e.toString();
@@ -25,6 +39,7 @@ class Repository {
   void signOut() async {
     firebaseAuth.signOut();
     googleSignIn.signOut();
+    Pref.box.clear();
   }
 
   void facebookLogin() async {
@@ -32,14 +47,18 @@ class Repository {
       LoginResult result = await FacebookAuth.instance.login();
       AuthCredential credential =
           FacebookAuthProvider.credential(result.accessToken!.token);
-      await firebaseAuth.signInWithCredential(credential);
+      final userCredentials =
+          await firebaseAuth.signInWithCredential(credential);
+      log("fbcredential -->> ${userCredentials.user}");
+      Get.to(() => const MyHomePage());
     } on FirebaseAuthException catch (e) {
-      e.toString();
+      log("error -->> ${e.toString()}");
     }
   }
 
   void fbSignOut() {
     firebaseAuth.signOut();
     FacebookAuth.i.logOut();
+    Pref.box.clear();
   }
 }

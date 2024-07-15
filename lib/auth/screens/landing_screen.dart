@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:snapchat/my_homepage.dart';
-import 'package:snapchat/repository.dart';
+import '../repository/sign_in.dart';
 
 class LandingScreen extends StatefulWidget {
   const LandingScreen({super.key});
@@ -34,16 +33,9 @@ class _LandingScreen extends State<LandingScreen> {
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8)),
                 color: Colors.white,
-                onPressed: () {
-                  Repository().googleSignInfnc();
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const MyHomePage(),
-                      ));
-                },
-                child: Row(
-                  children: const [
+                onPressed: () => SignIn().googleSignInfnc(),
+                child: const Row(
+                  children: [
                     Text('Login with'),
                     Image(
                       image: NetworkImage(
@@ -60,22 +52,16 @@ class _LandingScreen extends State<LandingScreen> {
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8)),
                 color: Colors.blue,
-                onPressed: () {
-                  Repository().facebookLogin();
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const MyHomePage(),
-                      ));
-                },
-                child: Row(
-                  children: const [
+                onPressed: () => SignIn().facebookLogin(),
+                child: const Row(
+                  children: [
                     Text('Login with'),
-                    Image(
-                      image: NetworkImage(
-                          'https://1000logos.net/wp-content/uploads/2016/11/Facebook-logo.png',
-                          scale: 40),
-                    ),
+                    SizedBox(width: 15),
+                    Icon(
+                      Icons.facebook,
+                      size: 27,
+                      color: Colors.white,
+                    )
                   ],
                 ),
               ),
