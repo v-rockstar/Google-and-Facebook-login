@@ -7,10 +7,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:snapchat/auth/screens/chat_screen.dart';
-import 'package:snapchat/controllers/update_data.dart';
-import 'package:snapchat/auth/screens/landing_screen.dart';
-import 'package:snapchat/helper/pref.dart';
+import 'chat_screen.dart';
+import '../../controllers/update_data.dart';
+import 'landing_screen.dart';
+import '../../helper/pref.dart';
 import '../../helper/global.dart';
 import '../repository/sign_in.dart';
 import 'package:path/path.dart' as p;
@@ -27,6 +27,7 @@ class _MyHomePageState extends State<MyHomePage> {
   final nC = TextEditingController();
   XFile? file;
   String? getURLlink;
+  
 
   Future<void> pickImage() async {
     final pickedImage =

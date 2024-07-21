@@ -1,7 +1,7 @@
 import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:snapchat/helper/global.dart';
+import '../../helper/global.dart';
 
 class ChatTile extends StatefulWidget {
   const ChatTile({super.key});

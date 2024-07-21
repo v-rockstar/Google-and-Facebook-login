@@ -1,8 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:snapchat/api/logic/crud_op.dart';
-import 'package:snapchat/api/screen/product_list.dart';
+import '../../router/router_x.dart';
+import '../logic/crud_op.dart';
+import '../../pact.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -23,8 +24,17 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text("Home"),
+        appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(90),
+          child: CustomPaint(
+            painter: PainterBrushBar(),
+            child: AppBar(
+              centerTitle: true,
+              backgroundColor: Colors.transparent,
+              elevation: 0,
+              title: const Text("Home"),
+            ),
+          ),
         ),
         body: Obx(
           () => crudC.isLoaded.value
@@ -41,7 +51,9 @@ class _HomeState extends State<Home> {
                             height: MediaQuery.sizeOf(context).height * .34,
                             width: MediaQuery.sizeOf(context).width * .3,
                             child: InkWell(
-                              onTap: () => Get.to(() => ProductList(cat: text)),
+                              onTap: () => RouterX.router.pushNamed(
+                                  RouteName.productList.name,
+                                  extra: text),
                               child: Column(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [

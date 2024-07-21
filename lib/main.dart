@@ -1,12 +1,20 @@
+import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'package:snapchat/api/screen/home.dart';
-import 'package:snapchat/auth/screens/landing_screen.dart';
+import 'package:snapchat/router/router_x.dart';
+import 'api/cubit/api_cubit.dart';
+import 'api/screen/home.dart';
+import 'api2.0.dart/screen/cat.dart';
+import 'auth/screens/landing_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:snapchat/auth/screens/my_homepage.dart';
-import 'package:snapchat/helper/pref.dart';
+import 'auth/screens/my_homepage.dart';
+import 'helper/pref.dart';
+import 'pact.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -15,6 +23,10 @@ void main() async {
   FirebaseFirestore.instance.settings =
       const Settings(persistenceEnabled: true);
   await Hive.initFlutter().then((value) async => await Pref.initializeHive());
+  await dotenv.load(fileName: ".env");
+  if (kDebugMode) {
+    log('ye hai debug mode me');
+  }
   runApp(const MyApp());
 }
 
@@ -23,11 +35,14 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
+    return MaterialApp.router(
       title: 'Snapchat',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(useMaterial3: false),
-      home: const Home(),
+      routerConfig: RouterX.router,
+
+      // home:
+      // const CategoryScreen()
       // home: SplashScreen(),
     );
   }
@@ -44,8 +59,9 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     Future.delayed(const Duration(seconds: 2), () {
-      Get.off(
-          () => Pref.skipIntro ? const MyHomePage() : const LandingScreen());
+      RouterX.router.goNamed(RouteName.home.name);
+      // Get.off(
+      //     () => Pref.skipIntro ? const MyHomePage() : const LandingScreen());
     });
     super.initState();
   }

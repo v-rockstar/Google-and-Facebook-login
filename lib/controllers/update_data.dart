@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
-import 'package:snapchat/auth/model/user_model.dart';
-import 'package:snapchat/controllers/get_data.dart';
+import '../auth/model/user_model.dart';
+import 'get_data.dart';
 import "dart:developer";
 import '../helper/global.dart';
 

@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:snapchat/controllers/update_data.dart';
+import '../../controllers/update_data.dart';
 import '../../helper/pref.dart';
 import '../screens/my_homepage.dart';
 
