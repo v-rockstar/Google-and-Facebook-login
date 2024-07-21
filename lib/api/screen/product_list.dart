@@ -18,8 +18,8 @@ class ProductList extends StatefulWidget {
 
 class _ProductListState extends State<ProductList> {
   List<Product> catProducts = [];
-  String abx = "hdhdhdhhd";
-  bool iso = true;
+  // sjbjashajkfhajkfhjahfkjahfjkhfk
+
   @override
   void initState() {
     log('cat -->> ${widget.cat}');
